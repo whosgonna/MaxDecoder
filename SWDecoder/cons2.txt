@@ -1,0 +1,2 @@
+s/TYPE/del/g
+s/>.*$//g

@@ -1,0 +1,88 @@
+s/[[:cntrl:]]//g
+s/>/\&gt;/g
+s/</\&lt;/g
+1i\
+<html>
+1i\
+<body style="font-family:arial;font-size:12;background-color:d9d9d9">
+s;0xd.*0x402.*$;&<span style="color:blue"><b>  // Message that the phone is offhook</b></span>;g
+s;0xd.*0xb44.*$;&<span style="color:blue"><b> // Message for VoIP offhook</b></span>;g
+/ST_LN_CONNECTED.*EV_ONHOOK/ s;$;<span style="color:blue"><b> //This phone hung up while the call was connected</b></span>;g
+s;ST_OFFHOOK.*EV_DIGIT..\([[:digit:]F#*]\).*$;&<span style="color:blue"><b> //The phone is offhook and the user dialed \1</b></span>;g
+s;ST_CALLSETUP.*EV_DIGIT..\([[:digit:]]\).*$;&<span style="color:blue"><b> // The previously collected digit \1 is processed.</b></span>;g
+/ST_WAITFORRINGACK.*EV_PAD_RINGING/ s;\([[:digit:]]*\):\([[:digit:]]*\):\([[:digit:]]*\).*897...\([[:digit:]]*\), \([[:digit:]]*\)....gt...\([[:digit:]]*\), \([[:digit:]]*\).;&<span style="color:blue"><b> // Port <a href="sw%BD0\4_%SL000\5.html#\1.\2.\3">^0\4:~000\5</a> sends signal that it is ringing.</b></span>;g
+/ST_RINGB.*EV_SET_CONNECT_ID/ s;\([[:digit:]]*\):\([[:digit:]]*\):\([[:digit:]]*\).*8a1....gt..\([[:digit:]*]*\),\([[:digit:]*]*\).$;&<span style="color:blue"><b> // Send the signal to port <a href="sw%BD0\4_%SL000\5.html#\1.\2.\3">^0\4:~000\5</a> to connect.</b></span>;g
+/ST_LN_CONNECTED.*lt.*EV_CALL_TERMINATED/ s;\([[:digit:]]*\):\([[:digit:]]*\):\([[:digit:]]*\).*8cc...\([[:digit:]*]*\), \([[:digit:]*]*\)....gt...[[:digit:]*]*, [[:digit:]*]*.*$;&<span style="color:blue"><b> // The disconnect signal was sent to this port from port <a href="sw%BD0\4_%SL000\5.html#\1.\2.\3">^0\4:~000\5</a></b><i>Typically this means that the other end hungup.</i></span>;g
+/ST_LN_CONNECTED.*posting.*EV_CALL_TERMINATED/ s;\([[:digit:]]*\):\([[:digit:]]*\):\([[:digit:]]*\).*8cc....gt...\([[:digit:]*]*\)..\([[:digit:]*]*\).$;&<span style="color:blue"><b> // Send the signal to port <a href="sw%BD0\4_%SL000\5.html#\1.\2.\3">^0\4:~000\5</a> that this extension has hung up.</b></span>;g
+/ST_IDLE.*EV_RING_PAD/ s;\([[:digit:]]*\):\([[:digit:]]*\):\([[:digit:]]*\).*893...\([[:digit:]*]*\), \([[:digit:]*]*\).*$;&<span style="color:blue"><b> // Signal to ring from port <a href="sw%BD0\4_%SL000\5.html#\1.\2.\3">^0\4:~000\5</a>.</b> This is an incoming call.</span>;g
+s;ST_OFFHOOK.*ST_CALLSETUP.*$;&<span style="color:salmon"> // The first digit is not shown here.  This is because it is processed by the number plan to identify this as an extension.</span>;g
+s;ST_WAITFORRINGACK.*ST_RINGB.*;&<span style="color:blue"><b> // Ringback.</b></span>;g
+s;reset call address.*$;&<span style="color:red"><b> //End of call sequence.</b> There may be status update lines between here and the start of the next call.</span>;g
+s;Called\ Address..Type..6\ No..\([[:digit:]].*\)$;&<span style="color:blue"><b> // Caller ID of SIP message sent to this extension.  (\1) is the IP address associated with this port</b></span>;g
+s;Called\ SubAddress..Type..2\ No..\([[:digit:]].*\)$;&<span style="color:blue"><b> // Caller ID of SIP message sent to this extension. (\1) is the extension# associated with this port</b></span>;g
+s;ST_SEIZE_TRUNK.*EV_DIGIT..\([[:digit:]f#*]*\).*$;&<span style="color:blue"><b> // Attempting to seize a trunk. A "\1" is dialed.</b></span>;g
+/ST_SEIZE_TRUNK.*ST_SEIZE_TRUNK/ s;\([[:digit:]*]*\),\([[:digit:]*]*\).*$;&<span style="color:blue"><b> // Seizing trunk \1:\2.</b></span>;g
+/ST_SEIZE_TRUNK.*EV_TK_SEIZE_OK/ s;\([[:digit:]]*\):\([[:digit:]]*\):\([[:digit:]]*\).*898...\([[:digit:]*]*\), \([[:digit:]*]*\).*\([[:digit:]*]*\), \([[:digit:]*]*\).*;&<span style="color:blue"> // Confirmation from trunk <a href="sw%BD0\4_%SL000\5.html#\1.\2.\3">^0\4:~000\5</a> that it has been siezed.</span>;g
+
+#use this line as a reference.
+/ST_LN_BUFFER_TRK_DIGITS..sending.*EV_DIGIT_BLOCK/ s;\([[:digit:]]*\):\([[:digit:]]*\):\([[:digit:]]*\).*DIGIT_BLOCK..\([[:digit:]*]*\).*gt..\([[:digit:]*]*\),\([[:digit:]*]*\).*$;&<span style="color:blue"> // Sending "\4" to trunk <a href="sw%BD0\5_%SL000\6.html#\1.\2.\3">^0\5:~000\6</a>'s buffer.</span>;g
+
+
+
+/ST_LN_BUFFER_TRK_DIGITS.*EV_DIGIT/ s;EV_DIGIT..\([[:digit:]F#*]\).*\([[:digit:]*]*\), \([[:digit:]*]*\).*$;&<span style="color:blue"><b> // The user dialed a "\1" on the phone, and it will be sent to the buffer to be dialed.</b></span>;g
+s;ST_LN_BUFFER_TRK_DIGITS.*posting.*EV_END_DIALING.*$;&<span style="color:blue"><b> // Tell the trunk that dialing is done.</b>  Either a "#" <i>(VERIFY THIS)</i> was dialed, or it has been 3 seconds since the last digit was sent.</span>;g
+s;0x10.*0x851.*$;&<span style="color:blue"> // PROCEEDING message from the carrier.</span>;g
+s;0x10.*0x8cc.*$;&<span style="color:blue"><b> // Call was termintated before it was answered.</b></span>;g
+s;Incoming Call Terminate Cause.*$;&<span style="color:blue"> // Reason recieved for call termination.</span>;g
+s;0x10.*0x4.*$;&<span style="color:blue"> //Extension goes to error state.</span>;g
+s;0x4.*0x403.*;&<span style="color:blue"><b> // Phone is hung up.</b></span>;g
+s;0xd.*0xb03.*;&<span style="color:blue"><b> // Call is intiated by AltiClient</b> (this could be redial too?)</span>;g
+s;0xd.*0x37.*;&<span style="color:blue"><b> // The phone is waiting to be picked up</b> Usually this is the phone ringing, and when it is picked up the outbound call will be placed. i.e. the call was placed by AltiClient.</span>;g
+s;0x37.*0x402.*$;&<span style="color:blue"><b> // The phone is taken offhook.</b></span>;g
+s;DINA Enblock xfer.*out=\([[:digit:]]*\).*$;&<span style="color:blue"> // The number to be sent is: \1</span>;g
+s;0xf.*0x403.*$;&<span style="color:blue"><b> // The phone is hung up. No digits were dialed.</b> **Note: This is common to see at the end of a call, when the other end hangs up <u>first</u>.  A new dial tone is presented for this extension before this user hangs up.</span>;g
+s;\([[:digit:]]*\):\([[:digit:]]*\):\([[:digit:]]*\).*0xd.*0x897....gt...\([[:digit:]]*\), \([[:digit:]]*\).*$;&<span style="color:blue"><b> // Send message to <a href="sw%BD0\4_%SL000\5.html#\1.\2.\3">^0\4:~000\5</a> that this extension is ringing.</b></span>;g
+s;0xe.*0x402.*$;&<span style="color:blue"><b> //This ringing phone is picked up.</b></span>;g
+/0x11.*0x511/ s;EV_DIGIT..\([[:digit:]F#*]*\).*$;&<span style="color:blue"><b> //The user dialed "\1"</b></span>;g
+/DINA override xfer.*Done/ s;out.\([[:digit:]F#*]*\).*$;&<span style="color:blue"> //The number to be dialed is \1.  //The next lines should show the digits being <u>sent</u>.</span>;g
+/ST_LN_CONNECTED.*sending.*EV_RING_PAD/ s;\([[:digit:]]*\):\([[:digit:]]*\):\([[:digit:]]*\).*gt..\([[:digit:]]*\),\([[:digit:]]*\).*$;& <span style="color:blue"><b> //Connect to port <a href="sw%BD0\4_%SL000\5.html#\1.\2.\3">^0\4:~000\5</a>.</b></span>;g
+/0x19.*0x897/ s;\([[:digit:]]*\):\([[:digit:]]*\):\([[:digit:]]*\).*897...\([[:digit:]*]*\), \([[:digit:]*]*\).*\([[:digit:]*]*\), \([[:digit:]*]*\).*$;&<span style="color:blue"><b> // Port <a href="sw%BD0\4_%SL000\5.html#\1.\2.\3">^0\4:~000\5</a> tells this port that it is ringing.</b></span>;g
+/0x19.*posting.*0x89b/ s;\([[:digit:]]*\):\([[:digit:]]*\):\([[:digit:]]*\).*gt...\([[:digit:]*]*\), \([[:digit:]*]*\).*$;&<span style="color:blue"></b> Send a message to the port on hold (<a href="sw%BD0\4_%SL000\5.html#\1.\2.\3">^0\4:~000\5</a>) that we have ringback from the extnsion being dialed.</b></span>;g
+/0x17.*0x895/ s;\([[:digit:]]*\):\([[:digit:]]*\):\([[:digit:]]*\).*895...\([[:digit:]*]*\), \([[:digit:]*]*\)....gt...\([[:digit:]*]*\), \([[:digit:]*]*\).*$;&<span style="color:blue"><b> // Call is picked up by port <a href="sw%BD0\4_%SL000\5.html#\1.\2.\3">^0\4:~000\5</a>  while this extension is in a transfer state.  This is a <u>supervised</u> transfer.</b></span>;g
+/ST_XFER_RINGBACK.*0x8a1/ s;\([[:digit:]]*\):\([[:digit:]]*\):\([[:digit:]]*\).*gt..\([[:digit:]*]*\),\([[:digit:]*]*\).*$;&<span style="color:blue"> // Connect voice to port <a href="sw%BD0\4_%SL000\5.html#\1.\2.\3">^0\4:~000\5</a>.</span>;g
+/0x17.*0x18/ s;$;&<span style="color:blue"> // Transfer will complete when this extension hangs up.</span>;g
+/0x18.*0x403/ s;$;&<span style="color:blue"><b> // This extension hung up, completeing the transfer.</b></span>;g
+/ST_XFER_WAITFORONHOOK.*0x89a/ s;\([[:digit:]]*\):\([[:digit:]]*\):\([[:digit:]]*\).*gt..\([[:digit:]*]*\),\([[:digit:]*]*\).*$;&<span style="color:blue"> // Send signal to the target port (<a href="sw%BD0\4_%SL000\5.html#\1.\2.\3">^0\4:~000\5</a>) that the call is being transfered.</span>;g
+/ST_XFER_WAITFORONHOOK.*0x89c/ s;\([[:digit:]]*\):\([[:digit:]]*\):\([[:digit:]]*\).*gt..\([[:digit:]*]*\),\([[:digit:]*]*\).*$;&<span style="color:blue"> // Send transfer signal to the port to be transfered (port <a href="sw%BD0\4_%SL000\5.html#\1.\2.\3">^0\4:~000\5</a>).</span>;g
+/0xd.*0x843/ s;$;&<span style="color:blue"> // <i>This line, and the few lines proceeding it (since the last reset call address) are WG status and message waiting information.  Most likely the next line contains the start of a new call.</i></span><br>;g
+/0x17.*0x403/ s;$;&<span style="color:blue"><b> // This extension hung up durring transfer ringback, indicating a <u>blind</u> transfer. </u></b></span>;g
+s;[Pp]\(hrase[1-9][[:digit:]][[:digit:]][[:digit:]]\).*$;&<span style="color:blue"> // Play <a href="http://www.whosgonna.com/altigen/TraceExamples/allphrases.html#p\1">"p\1."</a></span>;g
+s;LangCusto..\(.*\)\*.*$;&<span style="color:blue"> // Play <b>custom</b> phrase "\1".</a></span>;g
+/0x4b.*lt.*0x819/ s;$;&<span style="color:blue"><b> // Maintenance on the trunk.  This is usually the last line before a new call.</b></span><br>;g
+/0x4b.*0x899/ s;\([[:digit:]]*\):\([[:digit:]]*\):\([[:digit:]]*\).*899...\([[:digit:]*]*\), \([[:digit:]*]*\)....gt...\([[:digit:]*]*\), \([[:digit:]*]*\).*$;&<span style="color:blue"><b> // Port <a href="sw%BD0\4_%SL000\5.html#\1.\2.\3">^0\4:~000\5</a> seizes this trunk </b></span>;g
+/0x4b.*0x62/ s;$;&<span style="color:blue"> // Dialing:</span>;g 
+s;0x62.*EV_DIGIT_BLOCK..\([[:digit:]*]*\).*$;&<span style="color:blue"><b> // Dialing "\1"</b></span>;g
+/0x62.*0x850/ s;\([[:digit:]*]*\), \([[:digit:]*]*\)....gt...\([[:digit:]*]*\), \([[:digit:]*]*\).*$;&<span style="color:blue"><b> // Tell the trunk that dialing is done.</b>  Either a "#" <i>(VERIFY THIS)</i> was dialed, or it has been 3 seconds since the last digit was sent.</span>;g
+s;Call Packet: Calling Address: Type: 1 No: \([[:digit:]*]*\).*$;&<span style="color:blue"><b> // \1 is the number to be used as transmitted caller ID on a PRI.</b></span>;g
+s;Call Packet: Calling SubAddress: Type: 1 No: \([[:digit:]*]*\).*$;&<span style="color:blue"><b> // \1 is the extension caller ID.</b></span>;g
+s;Call Packet: Called Address: Type: 1 No: \([[:digit:]*]*\).*$;&<span style="color:blue"><b> // The number to be dialed is \1.</b></span>;g
+s;\([[:digit:]]*\):\([[:digit:]]*\):\([[:digit:]]*\).*0x4e.*0x8cc...\([[:digit:]*]*\), \([[:digit:]*]*\)....gt...\([[:digit:]*]*\), \([[:digit:]*]*\).*$;&<span style="color:blue"><b> // Signal to end the call is recieved from <a href="sw%BD0\4_%SL000\5.html#\1.\2.\3">^0\4:~000\5</a>.  This normaly indicates that the extension user hung up.</b></span>;g
+s;0x62.*0x4e.*$;&<span style="color:blue"><b> // Call is connected. </b></span>;g
+s;0xd.*0x8c5.*$;&<span style="color:blue"> // Midnight maintenance starts here.  This will take a minute or two.</span>;g
+s;0x1d.*0x403.*$;&<span style="color:blue"><b> // This port hung up durring ringback. </b></span>;g
+s;Called Address: Type: 3 No: \([[:digit:]*]*\) SubAddress: Type: 0 No: ;&<span style="color:blue"><b> // Inbound call to \1.</b></span>;g
+s;0x4b.*0x5f.*$;&<span style="color:blue"><b> // Ringing.</b></span>;g
+s;0x5f.*0x45.*$;&<span style="color:blue"><b> // DNIS information routes to an Auto Attendant.</b></span>;g
+s;AA Trace: Enter AA \([[:digit:]*]*\).*;&<span style="color:blue"><b> // Call is in AA (\1+1)</b><i> Traces start counting the AA's from 0, not 1.</i></span>;g
+s;0x45.*0x404.*$;&<span style="color:blue"><b> // The caller hung up while in the Auto Attenadant.</b></span>;g
+s;0x45.*DIGIT..\([[:digit:]F#*]*\).*;&<span style="color:blue"><b> // While in the AA the caller dialed \1.</b></span>;g
+s;AA Trace: action: TRANSFER.*;&<span style="color:blue"> // Transfer from AA.</span>;g
+s;\([[:digit:]]*\):\([[:digit:]]*\):\([[:digit:]]*\).*TK_ST_AA.*EV_RING_PAD.*gt..\([[:digit:]]*\),\([[:digit:]]*\).*$;&<span style="color:blue"><b> // Call is being routed from the AA to port <a href="sw%BD0\4_%SL000\5.html#\1.\2.\3">^0\4:~000\5</a>.</b></span>;g
+s;\([[:digit:]]*\):\([[:digit:]]*\):\([[:digit:]]*\).*0x4d.*0x895...\([[:digit:]]*\)..\([[:digit:]]*\)....gt...\([[:digit:]]*\)..\([[:digit:]]*\).;&<span style="color:blue"><b> // Call is answered by port <a href="sw%BD0\4_%SL000\5.html#\1.\2.\3">^0\4:~000\5</a>.</b></span>;g
+s;0x4d.*0x4e.*$;&<span style="color:blue"><b> // Connected.</b></span>;g
+s;0x4e.*0x404.*$;&<span style="color:blue"><b> // Signal to end the call is recieved from the carrier</b>  For a PRI the cause should be listed on the next line.</b></span>;g
+s;Post CallTermniate to Other Ends.*$;&<span style="color:blue"> // The reason sent out from the server for the call disconnect.</span>;g
+s;\([[:digit:]]*\):\([[:digit:]]*\):\([[:digit:]]*\),;<a name="#\1.\2.\3" id="\1.\2.\3">\1:\2:\3,</a>;g
+s;\^.*\([[:digit:]]\{2\}\):\~.*\([[:digit:]]\{4\}\);\1:\2;g
+s;\%BD.*\([[:digit:]]\{2\}\)_\%SL.*\([[:digit:]]\{4\}\).html;\1_\2.html;g
+s/.*$/&<br>/g

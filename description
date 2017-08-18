@@ -1,0 +1,8 @@
+s/[[:cntrl:]]//g
+s/>/&gt;/g
+s/</&lt;/g
+1i\
+<html>
+1i\
+<body style="font-family:arial;font-size:12;background-color:d9d9d9">
+s/.*$/&<br>/g

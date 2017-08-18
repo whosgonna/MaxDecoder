@@ -1,0 +1,157 @@
+s/[[:cntrl:]]//g
+s/<br>//g
+1i\
+<html>
+1i\
+<body style="font-family:arial;font-size:12;background-color:d9d9d9">
+
+#Remove the <E> and </E> tag at the start and end or each record respectively
+s;<E>;;g
+s;</E>;;g
+
+#Change the time stamp to bold
+s;<TIME>;<b>;g
+s;</TIME>;</b> ;g
+s;<S>;session: <b>;g
+s;</S>;</b> ;g
+s;<SQ>;seq: <b>;g
+s;</SQ>;</b> ;g
+
+s;<I>1</I>;<b>INTERNAL</b> ;g
+s;<I>2</I>;<b>EXTERNAL</b> ;g
+
+#Add a line break.
+s!^.*</b>!&<br> \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; !g
+
+#Caller Information
+s;<T1>;CallerType: <b>;g
+s;>0</T1>;>Unknown</b>;g
+s;>1</T1>;>ExtAnalog</b>;g
+s;>2</T1>;>IPExt</b>;g
+s;>3</T1>;>Reserved</b>;g
+s;>4</T1>;>VirtualExt</b>;g
+s;>5</T1>;>Workgroup</b>;g
+s;>6</T1>;>ApplicationExt</b>;g
+s;>7</T1>;>AnalogTrunk</b>;g
+s;>8</T1>;>T1-Trunk</b>;g
+s;>9</T1>;>IP-Trunk</b>;g
+s;>10</T1>;>PRI-Trunk</b>;g
+s;>11</T1>;>NotUsed</b>;g
+s;>12</T1>;>E1-Trunk</b>;g
+
+#Caller Port:
+s;\([[:digit:]]*\):\([[:digit:]]*\):\([[:digit:]]*\).*<P1>\([[:digit:]][[:digit:]]\)\([[:digit:]][[:digit:]][[:digit:]][[:digit:]]\)</P1>;&(<a href="sw\4_\5.html#\1.\2.\3">\4:\5</a>) ;g
+s;<P1>.*</P1>;;g
+
+#CallerID.  Number then Name.  
+s;<N1>;CID: <b>;g
+s;</N1>;-</b>;g
+s;<A1>O</A1>;<b><i>UNKNOWN</i></b> ;g
+s;<A1>;<b>;g
+s;</A1>;</b> ;g
+
+#Add a line break.
+s!^.*</b>!&<br> \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; !g
+
+#Target
+s;<T2>;TargetType: <b>;g
+s;>0</T2>;>Unknown</b>;g
+s;>1</T2>;>ExtAnalog</b>;g
+s;>2</T2>;>IPExt</b>;g
+s;>3</T2>;>Reserved</b>;g
+s;>4</T2>;>VirtualExt</b>;g
+s;>5</T2>;>Workgroup</b>;g
+s;>6</T2>;>ApplicationExt</b>;g
+s;>7</T2>;>AnalogTrunk</b>;g
+s;>8</T2>;>T1-Trunk</b>;g
+s;>9</T2>;>IP-Trunk</b>;g
+s;>10</T2>;>PRI-Trunk</b>;g
+s;>11</T2>;>NotUsed</b>;g
+s;>12</T2>;>E1-Trunk</b>;g
+
+#Target Port:
+s;\([[:digit:]]*\):\([[:digit:]]*\):\([[:digit:]]*\).*<P2>\([[:digit:]][[:digit:]]\)\([[:digit:]][[:digit:]][[:digit:]][[:digit:]]\)</P2>;&(<a href="sw\4_\5.html#\1.\2.\3">\4:\5</a>) ;g
+s;<P2>.*</P2>;;g
+
+#Target Name
+s;<N2>;Target: <b>;g
+s;</N2>;-</b>;g
+s;<A2>;<b>;g
+s;</A2>;</b> ;g
+
+#Group Information
+s;<G>;Group: <b>;g
+s;</G>;</b> ;g
+s;<GS>.*</GS>;;g
+#Need to check for the outboud WG tag
+
+#DNIS
+s;<DNIS>;DNIS: <b>;g
+s;</DNIS>;</b>;g
+
+#Add a line break.
+s!^.*</b>!&<br> \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; \&nbsp; Duration (seconds) : !g
+
+#Durations
+s;<DA>; Attendant:<b>;g
+s;</DA>;</b> -- ;g
+s;<DR>; Ring:<b>;g
+s;</DR>;</b> -- ;g
+s;<DT>; Talk:<b>;g
+s;</DT>;</b> -- ;g
+#Delete SLT (Service Level Threshold)
+s;<SLT>.*</SLT>;;g
+s;<DH>; Hold:<b>;g
+s;</DH>;</b> -- ;g
+s;<DV>; Voicemail:<b>;g
+s;</DV>;</b> -- ;g
+s;<VR>; Voicemail (recording):<b>;g
+s;</VR>;</b> -- ;g
+s;<TD>; Total Duration:<b>;g
+s;</TD>; seconds. </b>;g
+
+#Uncertain what the <V> tag is for.  Removing it from the decoded file. It is still in the src
+s;<V>.*</V>;;g
+
+#Move the exit code to the end, and then remove the original one (make it the last statement).
+s;<EX>\(.*\)</EX>.*$;& Exit State:<b><EXIT>\1</EXIT></b>;g
+s;<EX>\(.*\)</EX>;;g
+
+#Decode the exit states:
+s;<EXIT>1</EXIT>;Auto Attendant;g
+s;<EXIT>2</EXIT>;Forward;g
+s;<EXIT>3</EXIT>;Call Redirect;g
+s;<EXIT>4</EXIT>;Ring No Answer;g
+s;<EXIT>5</EXIT>;Busy;g
+s;<EXIT>6</EXIT>;Queue;g
+s;<EXIT>7</EXIT>;Queue Overflow;g
+s;<EXIT>8</EXIT>;Connected;g
+s;<EXIT>9</EXIT>;Conference;g
+s;<EXIT>10</EXIT>;Conference Member;g
+s;<EXIT>11</EXIT>;Hold;g
+s;<EXIT>12</EXIT>;Transfer;g
+s;<EXIT>13</EXIT>;Transfer Destination Unavailable;g
+s;<EXIT>14</EXIT>;Transfer Cancel;g
+s;<EXIT>15</EXIT>;Go to VM with out leaving a VM;g
+s;<EXIT>16</EXIT>;Go to VM, and leave a VM;g
+s;<EXIT>17</EXIT>;General VM;g
+s;<EXIT>18</EXIT>;VM Access;g
+s;<EXIT>19</EXIT>;VM Notify;g
+s;<EXIT>20</EXIT>;Call Pick up;g
+s;<EXIT>21</EXIT>;All Trunks Busy;g
+s;<EXIT>22</EXIT>;No Session;g
+s;<EXIT>23</EXIT>;Personal Park;g
+s;<EXIT>24</EXIT>;System Park;g
+s;<EXIT>25</EXIT>;Line Park;g
+s;<EXIT>26</EXIT>;Call Monitor;g
+s;<EXIT>27</EXIT>;Overhead Paging;g
+s;<EXIT>28</EXIT>;Reminder Call;g
+s;<EXIT>29</EXIT>;Group Member RNA;g
+s;<EXIT>30</EXIT>;One Number Access;g
+s;<EXIT>31</EXIT>;APC Connect;g
+s;<EXIT>32</EXIT>;Ring;g
+s;<EXIT>33</EXIT>;Transfered Ring;g
+s;<EXIT>34</EXIT>;Transfer Connected;g
+
+#add a break to the end of each line.
+s/.*$/&<hr>/g

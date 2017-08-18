@@ -1,0 +1,26 @@
+s/>/\&gt;/g
+s/</\&lt;/g
+
+1i\
+<html><head><style type="text/css"><!--
+1i\
+.indented {padding-left: 25pt;}
+1i\
+.callid {padding-left:25pt;font-weight:bold;color:000099;}
+1i\
+.cseq {padding-left:25pt;color:009900;}
+1i\
+.highlight {color:009900;}
+1i\
+--></style></head>
+1i\
+<body style="font-family:arial;font-size:12;background-color:d9d9d9">
+
+/^[[:digit:]{4}]/! s;\(^.*$\);<span class="indented">\1</span>;g
+/Call-ID/ s;indented;callid;g
+#/CSeq/  s;indented;cseq;g
+#/RmtIP/ s;((\([[:digit:]]*,[[:digit:]]*\)));((<span class="highlight">\1</span>));g
+s;RmtIP(\(.*\));RmtIP(<span class="highlight">\1</span>);g
+
+
+s/.*$/&<br>/g

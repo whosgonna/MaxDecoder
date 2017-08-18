@@ -1,0 +1,14 @@
+1i\
+<html><head>
+1i\
+<title>%%G</title><style type="text/css"> b.blue {color:blue;font-weight:bold;} </style></head>
+1i\
+<body style="font-family:Courier-New,Courier,monospace;font-size:14;background-color:d9d9d9;line-height:120%">
+
+s;\(..:..:..\....\);<b>\1</b>;
+
+s;\(THP_CMD_LINE_RING\|THP_CMD_LINE_STOP_RING\|THP_CMD_ENABLE_DTMF_DETECT\|THP_CMD_DISABLE_DTMF_DETECT\|THP_CMD_TRUNK_SEIZE\|THP_CMD_DIAL\|THP_CMD_SWITCH_MVIP|\THP_CMD_TRUNK_DISC\|THP_CMD_IP_CONNECT\|THP_CMD_ENABLE_AUDIO_IN\|MSG_TELE_STOP_DTD\|MSG_TELE_TRUNK_SEIZE_GLARE\);<b class="blue">\1</b>;
+#s;\(THP_CMD_ENABLE_DTMF_DETECT\);<b>\1</b>;g
+
+
+s;$;<br />;g

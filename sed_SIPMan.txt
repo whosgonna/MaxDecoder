@@ -1,0 +1,31 @@
+s/[[:cntrl:]]//g
+s/>/\&gt;/g
+s/</\&lt;/g
+
+/Call-ID:/ s;\(^.*$\);<b><font color="darkorchid">\1</font></b>;g
+s;\(^INVITE.*$\);<b><font color="blue">\1</font></b>;g
+s;\(^SIP/2.0.*$\);<b><font color="blue">\1</font></b>;g
+s;\(^BYE.*$\);<b><font color="blue">\1</font></b>;g
+s;\(^CANCEL.*$\);<b><font color="blue">\1</font></b>;g
+s;\(^OPTIONS.*$\);<b><font color="blue">\1</font></b>;g
+s;\(^REGISTER.*$\);<b><font color="blue">\1</font></b>;g
+s;\(^INFO.*$\);<b><font color="blue">\1</font></b>;g
+s;\(^CANCEL.*$\);<b><font color="blue">\1</font></b>;g
+s;\(^ACK.*$\);<b><font color="blue">\1</font></b>;g
+s;\(^m=.*$\);<font color="green">\1</font>;g
+s;\(^c=.*$\);<font color="green">\1</font>;g
+s;\(m=.*10062.*$\);\1 <font color="blue"><i>// dummy RTP port</i></font></b>;g
+s;\(^a=rtpmap:4.*$\);<font color="green">\1</font>;g
+s;\(^a=rtpmap:18.*$\);<font color="green">\1</font>;g
+s;\(^a=rtpmap:0.*$\);<font color="green">\1</font> <font color="blue"><i>// G.711</i></font>;g
+s;\(^AtgnMsg:.*$\);<font color="green">\1</font>;g
+
+
+/^[[:digit:]{4}].[[:digit:]{2}]..[[:digit:]{2}]/! s;\(^.*$\);<DIV CLASS="indented">\1</DIV>;g
+/^[[:digit:]{4}].[[:digit:]{2}]..[[:digit:]{2}]/ s;^.*$;&<br>;g
+s;<DIV CLASS="indented"></DIV>;<br>;g
+
+1i\
+<html><STYLE TYPE="text/css"><!-- .indented {padding-left: 25pt;}--></STYLE></html>
+1i\
+<body style="font-family:arial;font-size:12;background-color:d9d9d9">

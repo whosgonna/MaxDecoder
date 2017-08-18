@@ -1,0 +1,97 @@
+1i\
+<html><head>
+#1i\
+#<title>%%G</title></head>
+1i\
+<body style="font-family:arial;font-size:12;background-color:d9d9d9">
+
+
+
+s:>(0x:\&gt;(0x:g
+s;<W>;<b>Send</b> ;g
+s;<R>;<b>Recieve</b> ;g
+s;<.xml version="1.0".><AltiGen><IPPhone><ASIP version="1.0">;;g
+s;</ASIP></IPPhone></AltiGen>;;g
+s;<Control>;control ;g
+s;</Control>;;g
+s;<Config>;config ;g
+s;</Config>;;g
+s;<name>;<b>name:</b>;g
+s;</name>; ;g
+s;<group>; <b>;g
+s;</group>; </b>;g
+s;<mode>;<b>mode:</b> ;g
+s;</mode>; ;g
+
+
+/EV_DIGITS<.value><defalt>0<.defalt>/ s;$; <font color="blue">// IP710/720: <b>BLF#15</b></font> <font color="purple">IP705: <b>BLF#1</b></font>;
+/EV_DIGITS<.value><defalt>100<.defalt>/ s;$; <font color="blue">// IP710/720: <b>BLF#14</b></font> <font color="purple">IP705: <b>BLF#2</b></font>;
+/EV_DIGITS<.value><defalt>200<.defalt>/ s;$; <font color="blue">// IP710/720: <b>BLF#13</b></font> <font color="purple">IP705: <b>BLF#3</b></font>;
+/EV_DIGITS<.value><defalt>300<.defalt>/ s;$; <font color="blue">// IP710/720: <b>BLF#12</b></font> <font color="purple">IP705: <b>BLF#4</b></font>;
+/EV_DIGITS<.value><defalt>400<.defalt>/ s;$; <font color="blue">// IP710/720: <b>BLF#11</b></font> <font color="purple">IP705: <b>BLF#5</b></font>;
+/EV_DIGITS<.value><defalt>500<.defalt>/ s;$; <font color="blue">// IP710/720: N/A</font> <font color="purple">IP705: <b>Menu</b></font>;
+
+/EV_DIGITS<.value><defalt>1<.defalt>/ s%$% <font color="blue">// IP710/720: <b>BLF#10</b></font> <font color="purple">IP705: \&uarr;<</font>%
+/EV_DIGITS<.value><defalt>101<.defalt>/ s%$% <font color="blue">// IP710/720: <b>BLF#9</b></font> <font color="purple">IP705: \&larr;</font>%
+/EV_DIGITS<.value><defalt>201<.defalt>/ s%$% <font color="blue">// IP710/720: <b>BLF#8</b></font> <font color="purple">IP705: \&darr;</b></font>%
+/EV_DIGITS<.value><defalt>301<.defalt>/ s%$% <font color="blue">// IP710/720: <b>BLF#7</b></font> <font color="purple">IP705: \&rarr;</font>%
+/EV_DIGITS<.value><defalt>401<.defalt>/ s;$; <font color="blue">// IP710/720: <b>BLF#6</b></font> <font color="purple">IP705: <b>Enter</b></font>;
+/EV_DIGITS<.value><defalt>501<.defalt>/ s;$; <font color="blue">// IP710/720: N/A</font> <font color="purple">IP705: <b>1</b></font>;
+
+/EV_DIGITS<.value><defalt>2<.defalt>/ s;$; <font color="blue">// IP710/720: <b>BLF#5</b></font> <font color="purple">IP705: <b>2</b></font>;
+/EV_DIGITS<.value><defalt>102<.defalt>/ s;$; <font color="blue">// IP710/720: <b>BLF#4</b></font> <font color="purple">IP705: <b>3</b></font>;
+/EV_DIGITS<.value><defalt>202<.defalt>/ s;$; <font color="blue">// IP710/720: <b>BLF#3</b></font> <font color="purple">IP705: <b>4</b></font>;
+/EV_DIGITS<.value><defalt>302<.defalt>/ s;$; <font color="blue">// IP710/720: <b>BLF#2</b></font> <font color="purple">IP705: <b>5</b></font>;
+/EV_DIGITS<.value><defalt>402<.defalt>/ s;$; <font color="blue">// IP710/720: <b>BLF#1</b></font> <font color="purple">IP705: <b>6</b></font>;
+/EV_DIGITS<.value><defalt>502<.defalt>/ s;$; <font color="blue">// IP710/720: N/A</font> <font color="purple">IP705: <b>7</b></font>;
+
+/EV_DIGITS<.value><defalt>3<.defalt>/ s;$; <font color="blue">// IP710/720: <b>Greeting</b></font> <font color="purple">IP705: <b>8</b></font>;
+/EV_DIGITS<.value><defalt>103<.defalt>/ s;$; <font color="blue">// IP710/720: <b>Activity</b></font> <font color="purple">IP705: <b>9</b></font>;
+/EV_DIGITS<.value><defalt>203<.defalt>/ s;$; <font color="blue">// IP710/720: <b>VoiceMail</b></font> <font color="purple">IP705: <b>*</b></font>;
+/EV_DIGITS<.value><defalt>303<.defalt>/ s;$; <font color="blue">// IP710/720: <b>1</b></font> <font color="purple">IP705: <b>0</b></font>;
+/EV_DIGITS<.value><defalt>403<.defalt>/ s;$; <font color="blue">// IP710/720: <b>2</b></font> <font color="purple">IP705: <b>#</b></font>;
+/EV_DIGITS<.value><defalt>503<.defalt>/ s;$; <font color="blue">// IP710/720: <b>3</b></font> <font color="purple">IP705: <b>Release</b></font>;
+/EV_DIGITS<.value><defalt>603<.defalt>/ s;$; <font color="blue">// IP710/720: <b>4</b></font> <font color="purple">IP705: N/A</font>;
+
+/EV_DIGITS<.value><defalt>4<.defalt>/ s%$% <font color="blue">// IP710/720: <b>5</b></font> <font color="purple">IP705: <b>Redial</b></font>%
+/EV_DIGITS<.value><defalt>104<.defalt>/ s;$; <font color="blue">// IP710/720: <b>6</b></font> <font color="purple">IP705: <b>CallLog</b></font>;
+/EV_DIGITS<.value><defalt>204<.defalt>/ s;$; <font color="blue">// IP710/720: <b>7</b></font> <font color="purple">IP705: <b>Flash</b></font>;
+/EV_DIGITS<.value><defalt>304<.defalt>/ s;$; <font color="blue">// IP710/720: <b>8</b></font> <font color="purple">IP705: <b>Transfer</b></font>;
+/EV_DIGITS<.value><defalt>404<.defalt>/ s;$; <font color="blue">// IP710/720: <b>9</b></font> <font color="purple">IP705: <b>VoiceMail</b></font>;
+/EV_DIGITS<.value><defalt>504<.defalt>/ s;$; <font color="blue">// IP710/720: <b>*</b></font> <font color="purple">IP705: <b>Conference</b></font>;
+/EV_DIGITS<.value><defalt>604<.defalt>/ s;$; <font color="blue">// IP710/720: <b>0</b></font> <font color="purple">IP705: N/A</font>;
+
+/EV_DIGITS<.value><defalt>5<.defalt>/ s;$; <font color="blue">// IP710/720: <b>#</b></font> <font color="purple">IP705: <b>Hold</b></font>;
+/EV_DIGITS<.value><defalt>105<.defalt>/ s;$; <font color="blue">// IP710/720: <b>Release</b></font> <font color="purple">IP705: <b>Mute</b></font>;
+/EV_DIGITS<.value><defalt>205<.defalt>/ s;$; <font color="blue">// IP710/720: <b>Redial</b></font> <font color="purple">IP705: <b>Speaker</b></font>;
+/EV_DIGITS<.value><defalt>305<.defalt>/ s;$; <font color="blue">// IP710/720: <b>SpeedDial</b></font> <font color="purple">IP705: <b>VolDown</b></font>;
+/EV_DIGITS<.value><defalt>405<.defalt>/ s;$; <font color="blue">// IP710/720: <b>Call Log</b></font> <font color="purple">IP705: <b>VolUp</b></font>;
+/EV_DIGITS<.value><defalt>505<.defalt>/ s;$; <font color="blue">// IP710/720: <b>Flash</b></font> <font color="purple">IP705: N/A</font>;
+/EV_DIGITS<.value><defalt>605<.defalt>/ s;$; <font color="blue">// IP710/720: <b>Transfer</b></font> <font color="purple">IP705: N/A</font>;
+
+/EV_DIGITS<.value><defalt>6<.defalt>/ s;$; <font color="blue">// IP710/720: <b>Menu</b></font> <font color="purple">IP705: N/A</font>;
+/EV_DIGITS<.value><defalt>106<.defalt>/ s%$% <font color="blue">// IP710/720: \&uarr;</font> <font color="purple">IP705: N/A</font>%
+/EV_DIGITS<.value><defalt>206<.defalt>/ s%$% <font color="blue">// IP710/720: \&larr;</font> <font color="purple">IP705: N/A</font>%
+/EV_DIGITS<.value><defalt>306<.defalt>/ s%$% <font color="blue">// IP710/720: \&rarr;</font> <font color="purple">IP705: N/A</font>%
+/EV_DIGITS<.value><defalt>406<.defalt>/ s%$% <font color="blue">// IP710/720: \&darr;</font> <font color="purple">IP705: N/A</font>%
+/EV_DIGITS<.value><defalt>506<.defalt>/ s;$; <font color="blue">// IP710/720: <b>Enter</b></font> <font color="purple">IP705: N/A</font>;
+
+/EV_DIGITS<.value><defalt>606<.defalt>/ s;$; <font color="blue">// IP710/720: <b>Intercom</b></font> <font color="purple">IP705: N/A/font>;
+/EV_DIGITS<.value><defalt>7<.defalt>/ s;$; <font color="blue">// IP710/720: <b>Headset</b></font> <font color="purple">IP705: N/A</font>;
+/EV_DIGITS<.value><defalt>107<.defalt>/ s;$; <font color="blue">// IP710/720: <b>Conference</b></font> <font color="purple">IP705: N/A</font>;
+/EV_DIGITS<.value><defalt>207<.defalt>/ s;$; <font color="blue">// IP710/720: <b>Hold</b></font> <font color="purple">IP705: N/A</font>;
+/EV_DIGITS<.value><defalt>307<.defalt>/ s;$; <font color="blue">// IP710/720: <b>Mute</b></font> <font color="purple">IP705: N/A</font>;
+/EV_DIGITS<.value><defalt>407<.defalt>/ s;$; <font color="blue">// IP710/720: <b>Speaker</b></font> <font color="purple">IP705: N/A</font>;
+
+/LCDLine/ s;<value>;<b>value</b> <font color="green">\n zzzzzz;g
+/LCDLine/ s;</value>;\n</value>;g
+s;</value>;</font> ;g
+s;<bytes>;<b>bytes:</b> ;g
+s;</bytes>; ;g
+s;<defalt>;<b>default:</b> ;g
+s;</defalt>; ;g
+s;<description>;<b>description:</b> ;g
+s;</description>; ;g
+s;<value>;<b>value:</b> ;g
+
+s;$;</br>;g

@@ -1,0 +1,5 @@
+/[[:digit:]].txt/D
+/echo/d
+s/copy.*txt/TYPE/g
+s/bak//g
+s/\([[:digit:]]*_[[:digit:]]*\).*$/& >> sw\1bak.html/g

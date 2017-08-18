@@ -1,0 +1,11 @@
+s/[[:cntrl:]]//g
+s/>/\&gt;/g
+s/</\&lt;/g
+1i\
+<html>
+1i\
+<body style="font-family:arial;font-size:12;background-color:d9d9d9">
+1i\
+<b>NOTE: The IP addresses listed below are the <u>actual</u> IP address asigned to the phone.<br>If the phone is behind NAT, this will be differnet than the address shown in AltiAdmin.</b><br><br>
+/is not used/d
+s/.*$/&<br>/g

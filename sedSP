@@ -1,0 +1,57 @@
+s/HDLC:[a-z, 0-9].*$/\U&/g
+
+s/>/\&gt;/g
+s/</\&lt;/g
+1i\
+<html>
+1i\
+<body style="font-family:arial;font-size:12;background-color:d9d9d9">
+#s;HDLC: ;&<b>;g
+#s;.*$;&</b>;g
+
+s%HDLC:.\{25\}01.*$%&  <span style="color:blue;font-weight:bold">// ALERTING </span>%g
+s%HDLC:.\{25\}02.*$%&  <span style="color:blue;font-weight:bold">// CALL PROCEEDING </span>%g
+s%HDLC:.\{25\}03.*$%&  <span style="color:blue;font-weight:bold">// PROGRESS </span>%g
+s%HDLC:.\{25\}0D.*$%&  <span style="color:blue;font-weight:bold">// SETUP ACK </span>%g
+
+s%HDLC:.\{13\}08.\{10\}07.*$%&  <span style="color:blue;font-weight:bold">// CONNECT </span>%g
+s%HDLC:.\{13\}08.\{10\}0F.*$%&  <span style="color:blue;font-weight:bold">// CONNECT ACK </span>%g
+s%HDLC:.\{13\}43.\{10\}0F.*$%&  <span style="color:blue;font-weight:bold">// SERVICE </span>%g
+s%HDLC:.\{13\}43.\{10\}07.*$%&  <span style="color:blue;font-weight:bold">// SERVICE ACK</span>%g
+s%HDLC:.\{25\}4E.*$%&  <span style="color:blue;font-weight:bold">// RESTART ACK </span>%g
+s%HDLC:.\{25\}05.*$%&  <span style="color:blue;font-weight:bold">// SETUP </span>%g
+
+s%HDLC:.\{25\}26.*$%&  <span style="color:blue;font-weight:bold">// RESUME </span>%g
+s%HDLC:.\{25\}2E.*$%&  <span style="color:blue;font-weight:bold">// RESUME ACK </span>%g
+s%HDLC:.\{25\}22.*$%&  <span style="color:blue;font-weight:bold">// RESUME REJECT </span>%g
+s%HDLC:.\{25\}25.*$%&  <span style="color:blue;font-weight:bold">// SUSPEND </span>%g
+s%HDLC:.\{25\}2D.*$%&  <span style="color:blue;font-weight:bold">// SUSPEND ACK </span>%g
+s%HDLC:.\{25\}21.*$%&  <span style="color:blue;font-weight:bold">// SUSPEND REJECT </span>%g
+s%HDLC:.\{25\}20.*$%&  <span style="color:blue;font-weight:bold">// USER INFORMATION </span>%g
+s%HDLC:.\{25\}45.*$%&  <span style="color:blue;font-weight:bold">// DISCONNECT </span>%g
+s%HDLC:.\{25\}4D.*$%&  <span style="color:blue;font-weight:bold">// RELEASE </span>%g
+s%HDLC:.\{25\}5A.*$%&  <span style="color:blue;font-weight:bold">// RELEASE COMPLETE </span>%g
+s%HDLC:.\{25\}46.*$%&  <span style="color:blue;font-weight:bold">// RESTART </span>%g
+s%HDLC:.\{25\}4e.*$%&  <span style="color:blue;font-weight:bold">// RESTART ACK </span>%g
+
+s%HDLC:.\{25\}60.*$%&  <span style="color:blue;font-weight:bold">// SEGMENT </span>%g
+s%HDLC:.\{25\}79.*$%&  <span style="color:blue;font-weight:bold">// CONGESTION CONTROL </span>%g
+s%HDLC:.\{25\}7B.*$%&  <span style="color:blue;font-weight:bold">// INFORMATION </span>%g
+s%HDLC:.\{25\}6E.*$%&  <span style="color:blue;font-weight:bold">// NOTIFY </span>%g
+s%HDLC:.\{25\}7D.*$%&  <span style="color:blue;font-weight:bold">// STATUS </span>%g
+s%HDLC:.\{25\}75.*$%&  <span style="color:blue;font-weight:bold">// STATUS ENQUIRY </span>%g
+s%HDLC:.\{25\}62.*$%&  <span style="color:blue;font-weight:bold">// FACILITY </span>%g
+
+
+s%ReadHDLC:.*</span>.*$%& <span style="color:blue;font-weight:bold">recieved</span>%g
+s%WriteHDLC:.*</span>.*$%& <span style="color:blue;font-weight:bold">sent</span>%g
+/\/span/ s%HDLC:.\{22\}\([[:xdigit:]][[:xdigit:]]\).*$%& <span style="color:blue;font-weight:bold">(call reference</span> <span style="color:red;font-weight:bold">\1</span><span style="color:blue;font-weight:bold">)</span>%g
+#s;[Pp]\(hrase[1-9][[:digit:]][[:digit:]][[:digit:]]\).*$;&<span style="color:blue"> // Play <a href="http://www.whosgonna.com/altigen/TraceExamples/allphrases.html#p\1">"p\1."</a></span>;g
+/LangCustom/ s;hrase\([[:digit:]]\{4\}\).*$;<font color=blue> // Play custom phrase\1</font>;g
+
+s%HDLC:.\{25\}45.\{10\}90.*$%& <span style="color:blue;font-style:italic"> Cause# 16: Normal Call Clearing.</span>%g
+
+s;\([[:digit:]]*\):\([[:digit:]]*\):\([[:digit:]]*\),;<a name="#\1.\2.\3" id="\1.\2.\3">\1:\2:\3,</a>;g
+
+
+s/.*$/&<br>/g

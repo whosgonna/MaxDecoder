@@ -1,0 +1,3 @@
+s/del/ren/g
+s/sw\([[:digit:]]*_[[:digit:]]*\)/&bak/g
+s/sw\([[:digit:]]*_[[:digit:]]*\).*$/& sw\1.html/g
