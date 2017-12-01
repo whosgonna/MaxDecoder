@@ -172,7 +172,7 @@ Section "MainSection" SEC01
   File "SIPManSed"
   File "atps.bat"
   File "ATPSXMLSed"
-  File "DSPLogTimeDecode.exe"
+  File "bin\DSPLogTimeDecode.exe"
   File "DSPDecoder.bat"
   File "DSPsed"
   File "codectbl.bat"
