@@ -1,4 +1,4 @@
-MaxDecoder v.0.2.6
+MaxDecoder v.0.2.10
 ==================
 
 The decoder tool is meant to be run against a collected AltiServ trace package.
@@ -32,7 +32,7 @@ not be generated.  Example:  The Client Login file is generated from the CTProxy
 file, which is not created in AltiWare 5.1 therefore, an empty file is created durring the
 decoding process.
 
-4.  This is designed to decode trace files for 5.1 and above systems.
+4.  This is designed to decode trace files for 8.0 and above systems.
 
 
 FEEDBACK:
@@ -42,6 +42,13 @@ Please send feedback to ben.kaufman@altigen.com
 
 Updates:
 --------
+0.2.10
+--Added the ability to see ProcInfo for the day in question via new HTML file named Procinfo.Html.  This also shows
+--the user highlighted information where CPU or TotalCPU is greater than 80%.
+--Added the new Codec G.722 information to the Enterprise Network Page, with a table that will include any codecs listed
+--with multiple codecs.
+--Added a page that displays any BLF keys that are used by Polycom extensions.
+--Cleaned up the Enterprise network page to display actual settings for timers.
 
 0.2.6
 -- Added handling for SERVICE and SERVICE ACK messages in TritonSP logs (were previously showing as CONNECT / CONNECT ACK)
