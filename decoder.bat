@@ -35,6 +35,7 @@ call "%InstallationLocation%\DinaProxyDecode.bat"
 call "%InstallationLocation%\SIPManDecode.bat"
 call "%InstallationLocation%\atps.bat"
 call "%InstallationLocation%\DSPDecoder.bat"
+call "%InstallationLocation%\wgmnttest.bat"
 
 ::Create port listing
 dir /b sw*.html > portlist.html
@@ -59,6 +60,10 @@ echo ^<br^>^<a href="log/TritonSPIndex.html"^>TritonSP Logs^</a^> >> Description
 echo ^<br^>^<a href="log/IndexSIPMan.html"^>SIPMan Logs^</a^> >> Description.html
 echo ^<br^>^<a href="log/IndexATPS.html"^>ATPSXML Logs^</a^> >> Description.html
 echo ^<br^>^<a href="log/IndexDSP.html"^>DSP Logs^</a^> >> Description.html
+echo ^<br^>^<a href="log/WgStats.html"^>WorkGroup Stats^</a^> >> Description.html
+echo ^<br^>^<a href="log/CTProxyDump.html"^>Agent/Communicator Stats^</a^> >> Description.html
+echo ^<br^>^<a href="log/procinfo.html"^>Processor Information^</a^> >> Description.html
+echo ^<br^>^<a href="log/PolycomBLF.html"^>Polycom BLFs^</a^> >> Description.html
 
 ::Open the description file for viewing
 
