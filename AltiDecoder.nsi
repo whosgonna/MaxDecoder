@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "MaxDecoder"
-!define PRODUCT_VERSION "0.2.6"
+!define PRODUCT_VERSION "0.2.10"
 !define PRODUCT_PUBLISHER "AltiGen Communications, Inc."
 !define PRODUCT_WEB_SITE "http://www.altigen.com"
 !define PRODUCT_DIR_REGKEY "Software\${PRODUCT_PUBLISHER}\${PRODUCT_NAME}\"
