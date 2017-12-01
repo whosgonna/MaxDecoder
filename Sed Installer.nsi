@@ -16,7 +16,7 @@
 
 ; Welcome page
 !insertmacro MUI_PAGE_WELCOME
-; License page
+; Licensepage
 !insertmacro MUI_PAGE_LICENSE "GNU General Public License.txt"
 ; Directory page
 ;!insertmacro MUI_PAGE_DIRECTORY
@@ -37,19 +37,19 @@ ShowInstDetails show
 Section "MainSection" SEC01
   SetOutPath "$INSTDIR"
   SetOverwrite ifnewer
-  File "sed.exe"
-  File "libiconv2.dll"
-  File "libintl3.dll"
-  File "join.exe"
-  File "gdate.exe"
-  File "gsort.exe"
-  File "grep.exe"
-  File "pcre3.dll"
-  File "regex2.dll"
-  File "awk.exe"
-  File "gawk.exe"
-  File "pgawk.exe"
-  File "printf.exe"
+  File "bin\sed.exe"
+  File "bin\libiconv2.dll"
+  File "bin\libintl3.dll"
+  File "bin\join.exe"
+  File "bin\gdate.exe"
+  File "bin\gsort.exe"
+  File "bin\grep.exe"
+  File "bin\pcre3.dll"
+  File "bin\regex2.dll"
+  File "bin\awk.exe"
+  File "bin\gawk.exe"
+  File "bin\pgawk.exe"
+  File "bin\printf.exe"
   
   
 SectionEnd
