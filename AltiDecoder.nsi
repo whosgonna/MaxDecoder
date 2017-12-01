@@ -175,6 +175,8 @@ Section "MainSection" SEC01
   File "DSPLogTimeDecode.exe"
   File "DSPDecoder.bat"
   File "DSPsed"
+  File "codectbl.bat"
+  File "wgmnttest.bat"
   
 ;  ${EnvVarUpdate} $0 "PATH" "A" "HKLM" "$INSTDIR"
 SectionEnd
@@ -241,6 +243,8 @@ Section Uninstall
   Delete "$INSTDIR\DSPLogTimeDecode.exe"
   Delete "$INSTDIR\DSPDecoder.bat"
   Delete "$INSTDIR\DSPsed"
+  Delete "$INSTDIR\codectbl.bat"
+  Delete "$INSTDIR\wgmnttest.bat"
   
 ; Remove the GNU programs installed as well:
   Delete "$INSTDIR\sed.exe"
